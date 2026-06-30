@@ -1,0 +1,6 @@
+{
+  "name": "JejakRasa",
+  "description": "Aplikasi kuliner modern untuk pemesanan meja, manajemen menu, tracking pesanan, dan dashboard analytics admin.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
