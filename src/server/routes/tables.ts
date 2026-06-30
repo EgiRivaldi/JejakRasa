@@ -1,6 +1,6 @@
 import { Router } from "express";
 import pool from "../db/connection";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
+import { RowDataPacket, ResultSetHeader } from "../db/types";
 
 const router = Router();
 
@@ -8,7 +8,7 @@ const router = Router();
 router.get("/", async (req, res, next) => {
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
-      "SELECT * FROM tables ORDER BY CAST(number AS UNSIGNED) ASC, number ASC"
+      "SELECT * FROM tables ORDER BY CAST(number AS INTEGER) ASC, number ASC"
     );
     res.json(rows);
   } catch (error) {

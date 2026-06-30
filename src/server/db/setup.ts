@@ -11,7 +11,8 @@ async function runSQLFile(filePath: string) {
   
   const connection = await pool.getConnection();
   try {
-    await connection.query("SET FOREIGN_KEY_CHECKS = 0");
+    // Disable triggers / foreign key constraints temporarily in Postgres
+    await connection.query("SET session_replication_role = 'replica'");
     
     let executedCount = 0;
     for (let i = 0; i < rawStatements.length; i++) {
@@ -37,7 +38,8 @@ async function runSQLFile(filePath: string) {
       executedCount++;
     }
     
-    await connection.query("SET FOREIGN_KEY_CHECKS = 1");
+    // Re-enable triggers / constraints in Postgres
+    await connection.query("SET session_replication_role = 'origin'");
     console.log(`Successfully completed: ${path.basename(filePath)} (${executedCount} queries executed)`);
   } catch (error) {
     console.error(`Error running SQL file ${path.basename(filePath)}:`, error);
@@ -49,8 +51,8 @@ async function runSQLFile(filePath: string) {
 
 async function main() {
   try {
-    const schemaPath = path.join(process.cwd(), "src", "server", "db", "schema.sql");
-    const seedPath = path.join(process.cwd(), "src", "server", "db", "seed.sql");
+    const schemaPath = path.join(process.cwd(), "src", "server", "db", "schema.postgres.sql");
+    const seedPath = path.join(process.cwd(), "src", "server", "db", "seed.postgres.sql");
 
     await runSQLFile(schemaPath);
     await runSQLFile(seedPath);

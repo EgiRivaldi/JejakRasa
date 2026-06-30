@@ -1,7 +1,7 @@
 import { Router } from "express";
 import pool from "../db/connection";
 import bcrypt from "bcryptjs";
-import { RowDataPacket } from "mysql2";
+import { RowDataPacket } from "../db/types";
 
 const router = Router();
 

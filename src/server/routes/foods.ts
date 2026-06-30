@@ -1,6 +1,6 @@
 import { Router } from "express";
 import pool from "../db/connection";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
+import { RowDataPacket, ResultSetHeader } from "../db/types";
 
 const router = Router();
 
