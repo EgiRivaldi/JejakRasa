@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import api from "../api/client";
 
 export const Login: React.FC = () => {
-  const { loginCustomer, loginAdmin } = useApp();
+  const { loginCustomer, loginAdmin, tables } = useApp();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -166,9 +166,9 @@ export const Login: React.FC = () => {
                     className="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 focus:bg-white focus:border-indigo-500 rounded-2xl text-sm outline-none transition-colors appearance-none"
                   >
                     <option value="">-- Pilih Nomor Meja --</option>
-                    {Array.from({ length: 20 }, (_, i) => String(i + 1).padStart(2, "0")).map((num) => (
-                      <option key={num} value={num}>
-                        Meja Nomor {num}
+                    {tables.filter(t => t.status === 'Tersedia').map((t) => (
+                      <option key={t.number} value={t.number}>
+                        Meja Nomor {t.number}
                       </option>
                     ))}
                   </select>

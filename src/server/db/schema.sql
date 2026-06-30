@@ -3,6 +3,12 @@
 -- Target: Local MySQL (XAMPP/phpMyAdmin)
 -- ============================================
 
+-- Tabel Daftar Meja Pelanggan
+CREATE TABLE IF NOT EXISTS tables (
+  number VARCHAR(50) PRIMARY KEY,
+  status ENUM('Tersedia', 'Terisi') NOT NULL DEFAULT 'Tersedia'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Tabel Kategori Menu
 CREATE TABLE IF NOT EXISTS categories (
   id VARCHAR(50) PRIMARY KEY,

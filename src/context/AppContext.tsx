@@ -11,11 +11,17 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface Table {
+  number: string;
+  status: "Tersedia" | "Terisi";
+}
+
 interface AppContextType {
   foods: FoodItem[];
   categories: Category[];
   orders: Order[];
   promotions: Promotion[];
+  tables: Table[];
   cart: CartItem[];
   tableNumber: string;
   customerName: string;
@@ -42,6 +48,8 @@ interface AppContextType {
   updateOrderStatus: (orderId: string, status: Order["orderStatus"]) => Promise<void>;
   updatePaymentStatus: (orderId: string, status: Order["paymentStatus"]) => Promise<void>;
   deleteOrder: (orderId: string) => Promise<void>;
+  addTable: (number: string) => Promise<void>;
+  deleteTable: (number: string) => Promise<void>;
   refreshData: () => Promise<void>;
 }
 
@@ -52,6 +60,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [categories, setCategories] = useState<Category[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [promotions, setPromotions] = useState<Promotion[]>([]);
+  const [tables, setTables] = useState<Table[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Cart and user session remain client-side (localStorage)
@@ -81,23 +90,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const refreshData = async () => {
     setIsLoading(true);
     try {
-      const [fetchedFoods, fetchedCategories, fetchedOrders, fetchedPromotions] = await Promise.all([
+      const [fetchedFoods, fetchedCategories, fetchedOrders, fetchedPromotions, fetchedTables] = await Promise.all([
         api.get<FoodItem[]>("/foods"),
         api.get<Category[]>("/categories"),
         api.get<Order[]>("/orders"),
-        api.get<Promotion[]>("/promotions")
+        api.get<Promotion[]>("/promotions"),
+        api.get<Table[]>("/tables")
       ]);
 
       setFoods(fetchedFoods);
       setCategories(fetchedCategories);
       setOrders(fetchedOrders);
       setPromotions(fetchedPromotions);
+      setTables(fetchedTables);
     } catch (error) {
       console.error("Failed to load initial data from API:", error);
       Swal.fire({
         icon: "error",
         title: "Koneksi Database Gagal",
-        text: "Gagal memuat data dari server Clever Cloud. Pastikan server API berjalan dan database aktif."
+        text: "Gagal memuat data dari server. Pastikan XAMPP MySQL dan server API berjalan."
       });
     } finally {
       setIsLoading(false);
@@ -370,6 +381,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  // Admin CRUD for Tables
+  const addTable = async (number: string) => {
+    try {
+      const createdTable = await api.post<Table>("/tables", { number });
+      setTables((prev) => [...prev, createdTable].sort((a, b) => parseInt(a.number) - parseInt(b.number)));
+    } catch (error) {
+      console.error("Failed to add table via API:", error);
+      throw error;
+    }
+  };
+
+  const deleteTable = async (number: string) => {
+    try {
+      await api.delete(`/tables/${number}`);
+      setTables((prev) => prev.filter((t) => t.number !== number));
+    } catch (error) {
+      console.error("Failed to delete table via API:", error);
+      throw error;
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -377,6 +409,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         categories,
         orders,
         promotions,
+        tables,
         cart,
         tableNumber,
         customerName,
@@ -403,6 +436,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateOrderStatus,
         updatePaymentStatus,
         deleteOrder,
+        addTable,
+        deleteTable,
         refreshData
       }}
     >

@@ -3,6 +3,29 @@
 -- Migrasi dari data hardcoded TypeScript
 -- ============================================
 
+-- Daftar Meja
+INSERT INTO tables (number, status) VALUES
+  ('01', 'Tersedia'),
+  ('02', 'Tersedia'),
+  ('03', 'Tersedia'),
+  ('04', 'Tersedia'),
+  ('05', 'Tersedia'),
+  ('06', 'Tersedia'),
+  ('07', 'Tersedia'),
+  ('08', 'Tersedia'),
+  ('09', 'Tersedia'),
+  ('10', 'Tersedia'),
+  ('11', 'Tersedia'),
+  ('12', 'Tersedia'),
+  ('13', 'Tersedia'),
+  ('14', 'Tersedia'),
+  ('15', 'Tersedia'),
+  ('16', 'Tersedia'),
+  ('17', 'Tersedia'),
+  ('18', 'Tersedia'),
+  ('19', 'Tersedia'),
+  ('20', 'Tersedia');
+
 -- Kategori
 INSERT INTO categories (id, name, icon) VALUES
   ('semua', 'Semua', 'Grid'),

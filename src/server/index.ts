@@ -8,6 +8,7 @@ import ordersRouter from "./routes/orders";
 import promotionsRouter from "./routes/promotions";
 import bannersRouter from "./routes/banners";
 import authRouter from "./routes/auth";
+import tablesRouter from "./routes/tables";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use("/api/orders", ordersRouter);
 app.use("/api/promotions", promotionsRouter);
 app.use("/api/banners", bannersRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/tables", tablesRouter);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

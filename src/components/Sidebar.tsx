@@ -9,7 +9,8 @@ import {
   Settings,
   LogOut,
   ArrowLeft,
-  ShieldCheck
+  ShieldCheck,
+  TableProperties
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
 
@@ -33,6 +34,11 @@ export const Sidebar: React.FC = () => {
       path: "/admin/categories",
       name: "Kategori",
       icon: Tags
+    },
+    {
+      path: "/admin/tables",
+      name: "Kelola Meja",
+      icon: TableProperties
     },
     {
       path: "/admin/orders",

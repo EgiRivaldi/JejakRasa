@@ -24,6 +24,7 @@ import AdminCategories from "./pages/admin/Categories";
 import AdminOrders from "./pages/admin/Orders";
 import AdminReports from "./pages/admin/Reports";
 import AdminSettings from "./pages/admin/Settings";
+import AdminTables from "./pages/admin/Tables";
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="menu" element={<AdminMenus />} />
             <Route path="categories" element={<AdminCategories />} />
+            <Route path="tables" element={<AdminTables />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="reports" element={<AdminReports />} />
             <Route path="settings" element={<AdminSettings />} />
