@@ -203,7 +203,7 @@ export const Login: React.FC = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    placeholder="Masukkan 'admin'"
+                    placeholder="Masukkan username staff"
                     className="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 focus:bg-white focus:border-indigo-500 rounded-2xl text-sm outline-none transition-colors"
                   />
                 </div>
@@ -223,7 +223,7 @@ export const Login: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    placeholder="Masukkan 'admin123'"
+                    placeholder="••••••••"
                     className="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 focus:bg-white focus:border-indigo-500 rounded-2xl text-sm outline-none transition-colors"
                   />
                 </div>
@@ -250,4 +250,5 @@ export const Login: React.FC = () => {
     </div>
   );
 };
+
 export default Login;
